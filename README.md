@@ -1,0 +1,3 @@
+# Fortran Sandbox
+
+Been wanting to learn fortran for years and finally had the opportunity to as part of my coursework. This repository contains the Fortran source code I used during the process of familiarizing myself with Fortan syntax and operations. If you want to play around with it I've stored relevant commands in Makefiles in the same directories as the corresponding exercises. I used the gfortran compiler on MacOS while working on this.
