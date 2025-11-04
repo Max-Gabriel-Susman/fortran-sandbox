@@ -1,11 +1,7 @@
-! Main file to start the weather console-based program
-! Western Governors University
-! Created September 2024
-
 program weather_program
-  use weather_module 
+  use weather_module
 
-  implicit none
+  implicit none ! forces you to declare all of your variables
 
   ! Main variables
   ! fh = Fahrenheit High
@@ -16,7 +12,7 @@ program weather_program
   integer, dimension(7) :: fl = (/ 75, 70, 75, 76, 75, 70, 69 /)
   integer :: ws = 9
   integer, parameter :: numberTemperatures = 7 ! The number of temperatures is the same for the high and low temperature array lengths
-  character :: wc = 'P'
+  character :: wc = 'P' ! string declaration and assignment
   type(Weather) :: w
 
   ! Initialize Weather type

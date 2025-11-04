@@ -1,7 +1,4 @@
-! Weather module for the Weather program
-! Western Governors University
-! Created September 2024
-
+! logical type in fortran is a boolean
 module weather_module
   use, intrinsic :: iso_fortran_env, only : real64, int32
   implicit none
@@ -12,16 +9,16 @@ module weather_module
             find_weekly_fahrenheit_low_temp, determine_description, display_today_weather, &
             display_weekly_weather
 
-  type :: Weather
+  type :: Weather ! I guess fortran 90 is object oriented, here's a type declaration. however this is a structure as opposed to a class
     private
-    integer(int32), dimension(7) :: f_HighArray = 0
-    integer(int32), dimension(7) :: f_LowArray = 0
+    integer(int32), dimension(7) :: f_HighArray = 0 ! an int32 array of length 7
+    integer(int32), dimension(7) :: f_LowArray = 0 ! to make a dynamic array just use dimension(:) instead
     integer(int32) :: ws_MPH = 0
     integer(int32) :: numberTemperatures = 0
     character :: w_Code = ' '
     character(len=20) :: description = " "
   contains
-    procedure :: calculate_average_fahrenheit_high_temp
+    procedure :: calculate_average_fahrenheit_high_temp ! so these are basicall methods or receiver functions
     procedure :: calculate_average_fahrenheit_low_temp
     procedure :: find_weekly_fahrenheit_high_temp
     procedure :: find_weekly_fahrenheit_low_temp
@@ -45,7 +42,7 @@ contains
     call load_weekly_weather(w, fhArray, flArray, ws, wc)
   end function new_Weather
 
-  subroutine load_weekly_weather(this, fhArray, flArray, ws, wc)
+  subroutine load_weekly_weather(this, fhArray, flArray, ws, wc) ! subroutines are just functions
     class(Weather) :: this
     integer(int32), intent(in) :: fhArray(7), flArray(7), ws
     character, intent(in) :: wc
@@ -58,7 +55,7 @@ contains
 
   function calculate_average_fahrenheit_high_temp(this) result(avghi)
     class(Weather), intent(in) :: this
-    real(real64) :: avghi
+    real(real64) :: avghi ! real is basically a float declaration
     integer(int32) :: hisum
     
     hisum = sum(this%f_HighArray)
@@ -103,7 +100,7 @@ contains
   subroutine determine_description(this)
     class(Weather) :: this
 
-    select case (this%w_Code)
+    select case (this%w_Code) ! looks like it's basicaly a switch statment
       case ('S')
         this%description = "SUNNY"
       case ('P')
@@ -118,15 +115,15 @@ contains
   subroutine display_today_weather(this)
     class(Weather) :: this
 
-    print *, "SUNDAY FORECAST"
+    print *, "SUNDAY FORECAST" ! console output
     print *, "High: ", this%f_HighArray(1), " (F) ", "Low: ", this%f_LowArray(1), " (F)"
     print *
   end subroutine display_today_weather
 
   subroutine display_weekly_weather(this)
-    class(Weather) :: this
+    class(Weather) :: this ! :: seems to be the declaration operator
     integer(int32) :: i
-    character(len=9), dimension(7), parameter :: days = [character(len=9) :: "Sunday   ", "Monday   ", "Tuesday  ", "Wednesday", &
+    character(len=9), dimension(7), parameter :: days = [character(len=9) :: "Sunday   ", "Monday   ", "Tuesday  ", "Wednesday", & ! parameter means it's a constant
                                                          "Thursday ", "Friday   ", "Saturday "]
 
     print *, "THE WEEKLY FORECAST"
@@ -137,7 +134,7 @@ contains
     print *, "Lowest Weekly Temperature:  ", find_weekly_fahrenheit_low_temp(this), " (F) "
     print *
 
-    do i = 1, this%numberTemperatures
+    do i = 1, this%numberTemperatures ! basically a for loop
       print *, days(i)
       print *, "High: ", this%f_HighArray(i), " (F) ", "Low: ", this%f_LowArray(i), " (F)"
       print *
