@@ -10,9 +10,9 @@ module weather_module
             display_weekly_weather
 
   type :: Weather ! I guess fortran 90 is object oriented, here's a type declaration. however this is a structure as opposed to a class
-    private
+    private ! private statements are only accessed in the module they are declared
     integer(int32), dimension(7) :: f_HighArray = 0 ! an int32 array of length 7
-    integer(int32), dimension(7) :: f_LowArray = 0 ! to make a dynamic array just use dimension(:) instead
+    integer(int32), dimension(7) :: f_LowAderray = 0 ! to make a dynamic array just use dimension(:) instead
     integer(int32) :: ws_MPH = 0
     integer(int32) :: numberTemperatures = 0
     character :: w_Code = ' '
@@ -27,7 +27,7 @@ module weather_module
     procedure :: display_weekly_weather
   end type Weather
 
-  interface Weather
+  interface Weather ! provides an explicit interface for external procedures like in main.f90
     module procedure new_Weather
   end interface Weather
 
